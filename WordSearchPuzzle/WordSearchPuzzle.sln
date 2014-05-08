@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordSearchPuzzle", "WordSearchPuzzle\WordSearchPuzzle.csproj", "{93D74483-FBE8-4F91-B8F6-A2A0E3E57A85}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordSearchPuzzle.Test", "WordSearchProject.Test\WordSearchPuzzle.Test.csproj", "{687F89AB-DBBD-40FF-B3B5-CE35CD25DCB1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{93D74483-FBE8-4F91-B8F6-A2A0E3E57A85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93D74483-FBE8-4F91-B8F6-A2A0E3E57A85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93D74483-FBE8-4F91-B8F6-A2A0E3E57A85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{687F89AB-DBBD-40FF-B3B5-CE35CD25DCB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{687F89AB-DBBD-40FF-B3B5-CE35CD25DCB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{687F89AB-DBBD-40FF-B3B5-CE35CD25DCB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{687F89AB-DBBD-40FF-B3B5-CE35CD25DCB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
