@@ -7,9 +7,9 @@ right to left, up, down or diagonally.
 Create a console application which will search the puzzle for the words contained in the list.  Your output should
 note which word you found, where you found it and one of the following designations for the direction the word takes:
 
-LR – Left to right
-RL – Right to left
-U – Up
+- LR – Left to right
+- RL – Right to left
+- U – Up
 D – Down
 DUL – Diagonal up left
 DUR – Diagonal up right

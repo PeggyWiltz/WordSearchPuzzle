@@ -9,7 +9,7 @@ namespace WordSearchPuzzle.Test
                     "TPIR",
                     "WORD",
                     "CRAB",
-                    "DNDI"
+                    "TARB"
                 };
             return grid;
         }
