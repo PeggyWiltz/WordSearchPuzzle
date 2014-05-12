@@ -7,6 +7,7 @@ namespace WordSearchPuzzle
 {
     public class WordSearch
     {
+        
         public static WordFound FindWordLr(string wordToFind, string[] grid)
         {
             var wordInCaps = wordToFind.ToUpper().Trim();
@@ -42,11 +43,61 @@ namespace WordSearchPuzzle
             return null;
         }
 
+        public static WordFound FindWordU(string wordToFind, string[] grid)
+        {
+            return FindWordInDirection(wordToFind, grid, "U");
+        }
 
+        public static WordFound FindWordD(string wordToFind, string[] grid)
+        {
+            return FindWordInDirection(wordToFind, grid, "D");
+        }
+
+        public static WordFound FindWordDul(string wordToFind, string[] grid)
+        {
+            return FindWordInDirection(wordToFind, grid, "DUL");
+        }
+
+        public static WordFound FindWordDur(string wordToFind, string[] grid)
+        {
+            return FindWordInDirection(wordToFind, grid, "DUR");
+        }
+
+        public static WordFound FindWordDdl(string wordToFind, string[] grid)
+        {
+            return FindWordInDirection(wordToFind, grid, "DDL");
+        }
+
+        public static WordFound FindWordDdr(string wordToFind, string[] grid)
+        {
+            return FindWordInDirection(wordToFind, grid, "DDR");
+        }
+
+        public static WordFound FindWordInDirection(string wordToFind, string[] grid, string direction )
+        {
+            var firstLetterList = FindFirstLetter(wordToFind, grid);
+            var wordLen = wordToFind.Length;
+            var wordUpper = wordToFind.ToUpper();
+            foreach (var letter in firstLetterList.Locations)
+            {
+                var charList = FillCharList(grid, letter, wordLen, direction);
+                if (charList == wordUpper)
+                {
+                    return new WordFound
+                    {
+                        WordText = wordUpper,
+                        WordDirection = direction
+                    };
+                }
+            }
+            return null;
+        }
+
+        
         public static FirstLetterList FindFirstLetter(string wordToFind, string[] grid)
         {
             var firstLetterList = new FirstLetterList(wordToFind);
-            var locationsList = new List<FirstLetter>();
+            var locationsList = new List<GridLocation>();
             var firstLetter = firstLetterList.Letter;
 
             for (var i = 0; i < grid.Length; i++)
@@ -56,7 +107,7 @@ namespace WordSearchPuzzle
                 {
                     var gridLetter = grid[i][j].ToString();
                     if (!firstLetter.Equals(gridLetter)) continue;
-                    var newLocation = new FirstLetter
+                    var newLocation = new GridLocation
                     {
                         Row = i, 
                         Column = j
@@ -68,69 +119,83 @@ namespace WordSearchPuzzle
             return firstLetterList;
             
         }
-
-        public static WordFound FindWordU(string wordToFind, string[] grid)
-        {
-            var firstLetterList = FindFirstLetter(wordToFind, grid);
-            var wordLen = wordToFind.Length;
-            var wordUpper = wordToFind.ToUpper();
-            foreach (var letter in firstLetterList.Locations)
-            {
-                var charList = FillCharListUp(grid, letter, wordLen, "U");
-                if (charList == wordUpper)
-                {
-                    return new WordFound
-                    {
-                        WordText = wordUpper,
-                        WordDirection = "U"
-                    };
-                }
-            }
-            return null;
-        }
-
-        public static WordFound FindWordD(string wordToFind, string[] grid)
-        {
-            return null;
-        }
-
-        private static string FillCharListUp(IList<string> grid, FirstLetter letter, int wordLen, string direction)
+        
+        
+        private static string FillCharList(IList<string> grid, GridLocation letter, int wordLen, string direction)
         {
             var charList = new StringBuilder();
             var row = letter.Row;
+            var col = letter.Column;
+            var gridDimension = grid.Count;     //NOTE: handling grid with different height/width out of scope
+            var gridLoc = new GridLocation(row, col);
 
-            if (ValidateWordSpace(wordLen, row, direction))
+            if (InvalidWordSpace(wordLen, letter, direction, gridDimension))
             {
                 return string.Empty;
             }
-            var col = letter.Column;
+
             charList.Append(grid[row][col]);
             for (var i = 1; i < wordLen; i++)
             {
-                row = SetNewRowValue(row, direction);
-                charList.Append(grid[row][col]);
+                gridLoc = SetNewRowValue(gridLoc.Row, gridLoc.Column, direction);
+                charList.Append(grid[gridLoc.Row][gridLoc.Column]);
             }
             return charList.ToString();
         }
 
-        private static int SetNewRowValue(int row, string direction)
+        private static GridLocation SetNewRowValue(int row, int col, string direction)
         {
+            var gridLoc = new GridLocation
+                {
+                    Row = row,
+                    Column = col
+                };
+
             switch (direction)
             {
                 case "U":
-                    row -= 1;
+                    gridLoc.Row -= 1;
+                    break;
+                case "D":
+                    gridLoc.Row += 1;
+                    break;
+                case "DUL":
+                    gridLoc.Row -= 1;
+                    gridLoc.Column -= 1;
+                    break;
+                case "DUR":
+                    gridLoc.Row -= 1;
+                    gridLoc.Column += 1;
+                    break;
+                case "DDL":
+                    gridLoc.Row += 1;
+                    gridLoc.Column -= 1;
+                    break;
+                case "DDR":
+                    gridLoc.Row += 1;
+                    gridLoc.Column += 1;
                     break;
             }
             
-            return row;
+            return gridLoc;
         }
 
-        private static bool ValidateWordSpace(int wordLen, int row, string direction)
+        private static bool InvalidWordSpace(int wordLen, GridLocation gridLoc, string direction, int gridDimension)
         {
             switch (direction)
             {
                 case "U":
-                    return row < wordLen - 1;
+                    return gridLoc.Row < wordLen - 1;
+                case "D":
+                    return gridLoc.Row + wordLen > gridDimension;
+                case "DUL":
+                    return gridLoc.Row < wordLen - 1 || gridLoc.Column < gridDimension - 1;
+                case "DUR":
+                    return gridLoc.Row < wordLen - 1 || gridLoc.Column + wordLen > gridDimension;
+                case "DDL":
+                    return gridLoc.Row + wordLen - 1 > gridDimension || gridLoc.Column < wordLen - 1;
+                case "DDR":
+                    return gridLoc.Row + wordLen - 1 > gridDimension  || gridLoc.Column + wordLen - 1 > gridDimension)
                 default:
                     return false;
             }

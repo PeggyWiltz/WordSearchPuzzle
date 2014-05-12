@@ -10,11 +10,11 @@ note which word you found, where you found it and one of the following designati
 - LR – Left to right
 - RL – Right to left
 - U – Up
-D – Down
-DUL – Diagonal up left
-DUR – Diagonal up right
-DDL – Diagonal down left
-DDR – Diagonal down right
+- D – Down
+- DUL – Diagonal up left
+- DUR – Diagonal up right
+- DDL – Diagonal down left
+- DDR – Diagonal down right
 
 Your deliverable for this exercise will be the console application and all supporting modules necessary to compile
 and run your solution.

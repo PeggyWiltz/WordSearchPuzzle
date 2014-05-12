@@ -9,6 +9,6 @@ namespace WordSearchPuzzle
             Letter = word.Substring(0, 1).ToUpper();
         }
         public string Letter { get; set; }
-        public List<FirstLetter> Locations { get; set; }
+        public List<GridLocation> Locations { get; set; }
     }
 }
