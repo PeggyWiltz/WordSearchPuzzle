@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
 using System.Text;
 
 namespace WordSearchPuzzle
@@ -12,20 +12,20 @@ namespace WordSearchPuzzle
         {
             var wordInCaps = wordToFind.ToUpper().Trim();
             var wordFound = new WordFound();
-            if (grid.Any(t => t.Contains(wordInCaps)))
+            var firstLetterList = FindFirstLetter(wordToFind, grid);
+            foreach (var letter in firstLetterList.Locations)
             {
-                wordFound.WordText = wordInCaps;
-                wordFound.WordDirection = "LR";
-                return wordFound;
+                var gridRowStr = grid[letter.Row].ToString(CultureInfo.InvariantCulture);
+                if (gridRowStr.Contains(wordInCaps))
+                {
+                    wordFound.WordText = wordInCaps;
+                    wordFound.WordDirection = "LR";
+                    wordFound.Location.Row = letter.Row;
+                    wordFound.Location.Column = gridRowStr.IndexOf(wordInCaps, StringComparison.Ordinal);
+                    return wordFound;
+                }
             }
             return null;
-        }
-
-        private static string ReverseString(string s)
-        {
-            char[] reversed = s.ToCharArray();
-            Array.Reverse(reversed);
-            return new String(reversed);
         }
 
         public static WordFound FindWordRl(string wordToFind, string[] grid)
@@ -34,10 +34,13 @@ namespace WordSearchPuzzle
             var wordFound = FindWordLr(reversedString, grid);
             if (wordFound != null)
             {
+                var wordRow = wordFound.Location.Row;
+                var wordCol = wordFound.Location.Column + wordToFind.Length - 1;
                 return new WordFound
                     {
                         WordText = wordToFind.ToUpper(),
-                        WordDirection = "RL"
+                        WordDirection = "RL",
+                        Location = new GridLocation(wordRow, wordCol)
                     };
             }
             return null;
@@ -73,6 +76,13 @@ namespace WordSearchPuzzle
             return FindWordInDirection(wordToFind, grid, "DDR");
         }
 
+        private static string ReverseString(string s)
+        {
+            var reversed = s.ToCharArray();
+            Array.Reverse(reversed);
+            return new String(reversed);
+        }
+
         public static WordFound FindWordInDirection(string wordToFind, string[] grid, string direction )
         {
             var firstLetterList = FindFirstLetter(wordToFind, grid);
@@ -86,7 +96,8 @@ namespace WordSearchPuzzle
                     return new WordFound
                     {
                         WordText = wordUpper,
-                        WordDirection = direction
+                        WordDirection = direction,
+                        Location = new GridLocation(letter.Row, letter.Column)
                     };
                 }
             }
@@ -105,7 +116,7 @@ namespace WordSearchPuzzle
                 if (!grid[i].Contains(firstLetter)) continue;
                 for (var j = 0; j < grid[i].Length; j++)
                 {
-                    var gridLetter = grid[i][j].ToString();
+                    var gridLetter = grid[i][j].ToString(CultureInfo.InvariantCulture);
                     if (!firstLetter.Equals(gridLetter)) continue;
                     var newLocation = new GridLocation
                     {
@@ -195,7 +206,7 @@ namespace WordSearchPuzzle
                 case "DDL":
                     return gridLoc.Row + wordLen - 1 > gridDimension || gridLoc.Column < wordLen - 1;
                 case "DDR":
-                    return gridLoc.Row + wordLen - 1 > gridDimension  || gridLoc.Column + wordLen - 1 > gridDimension)
+                    return gridLoc.Row + wordLen - 1 > gridDimension || gridLoc.Column + wordLen - 1 > gridDimension;
                 default:
                     return false;
             }

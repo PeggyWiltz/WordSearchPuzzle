@@ -28,7 +28,8 @@ namespace WordSearchPuzzle.Test
             const string wordToFind = "word";
             const string expectedText = "WORD";
             const string expectedDirection = "LR";
-
+            var expectedLocation = new GridLocation(1, 0);
+                
             var grid = Get.AnySmallGrid();
 
             // Act
@@ -37,6 +38,8 @@ namespace WordSearchPuzzle.Test
             // Assert
             result.WordText.Should().Be(expectedText);
             result.WordDirection.Should().Be(expectedDirection);
+            result.Location.ShouldBeEquivalentTo(expectedLocation);
+            
 
         }
 
@@ -61,6 +64,7 @@ namespace WordSearchPuzzle.Test
             const string wordToFind = "brat";
             const string expectedWord = "BRAT";
             const string expectedDirection = "RL";
+            var expectedLocation = new GridLocation(3,3);
             var grid = Get.AnySmallGrid();
             
             // Act
@@ -69,6 +73,7 @@ namespace WordSearchPuzzle.Test
             // Assert
             result.WordText.Should().Be(expectedWord);
             result.WordDirection.Should().Be(expectedDirection);
+            result.Location.ShouldBeEquivalentTo(expectedLocation);
         }
 
         [TestMethod]
@@ -92,6 +97,7 @@ namespace WordSearchPuzzle.Test
             const string wordToFind = "arop";
             const string expectedWord = "AROP";
             const string expectedDirection = "U";
+            var expectedLocation = new GridLocation(3, 1);
             var grid = Get.AnySmallGrid();
 
             // Act
@@ -100,6 +106,7 @@ namespace WordSearchPuzzle.Test
             // Assert
             result.WordText.Should().Be(expectedWord);
             result.WordDirection.Should().Be(expectedDirection);
+            result.Location.ShouldBeEquivalentTo(expectedLocation);
         }
 
         [TestMethod]
@@ -123,6 +130,7 @@ namespace WordSearchPuzzle.Test
             const string wordToFind = "irar";
             const string expectedWord = "IRAR";
             const string expectedDirection = "D";
+            var expectedLocation = new GridLocation(0, 2);
             var grid = Get.AnySmallGrid();
 
             // Act
@@ -131,6 +139,7 @@ namespace WordSearchPuzzle.Test
             // Assert
             result.WordText.Should().Be(expectedWord);
             result.WordDirection.Should().Be(expectedDirection);
+            result.Location.ShouldBeEquivalentTo(expectedLocation);
         }
 
         [TestMethod]
@@ -154,6 +163,7 @@ namespace WordSearchPuzzle.Test
             const string wordToFind = "baot";
             const string expectedWord = "BAOT";
             const string expectedDirection = "DUL";
+            var expectedLocation = new GridLocation(3, 3);
             var grid = Get.AnySmallGrid();
 
             // Act
@@ -162,6 +172,7 @@ namespace WordSearchPuzzle.Test
             // Assert
             result.WordText.Should().Be(expectedWord);
             result.WordDirection.Should().Be(expectedDirection);
+            result.Location.ShouldBeEquivalentTo(expectedLocation);
         }
 
         [TestMethod]
@@ -179,12 +190,13 @@ namespace WordSearchPuzzle.Test
         }
 
         [TestMethod]
-        public void FindWordDurWithDiagonalUpLeftWordFoundShouldReturnCorrectFoundWord()
+        public void FindWordDurWithDiagonalUpRightWordFoundShouldReturnCorrectFoundWord()
         {
             // Arrange
             const string wordToFind = "trrr";
             const string expectedWord = "TRRR";
             const string expectedDirection = "DUR";
+            var expectedLocation = new GridLocation(3, 0);
             var grid = Get.AnySmallGrid();
 
             // Act
@@ -193,6 +205,7 @@ namespace WordSearchPuzzle.Test
             // Assert
             result.WordText.Should().Be(expectedWord);
             result.WordDirection.Should().Be(expectedDirection);
+            result.Location.ShouldBeEquivalentTo(expectedLocation);
         }
 
         [TestMethod]
@@ -210,12 +223,13 @@ namespace WordSearchPuzzle.Test
         }
 
         [TestMethod]
-        public void FindWordDdlWithDiagonalUpLeftWordFoundShouldReturnCorrectFoundWord()
+        public void FindWordDdlWithDiagonalDownLeftWordFoundShouldReturnCorrectFoundWord()
         {
             // Arrange
             const string wordToFind = "rrrt";
             const string expectedWord = "RRRT";
             const string expectedDirection = "DDL";
+            var expectedLocation = new GridLocation(0, 3);
             var grid = Get.AnySmallGrid();
 
             // Act
@@ -224,6 +238,7 @@ namespace WordSearchPuzzle.Test
             // Assert
             result.WordText.Should().Be(expectedWord);
             result.WordDirection.Should().Be(expectedDirection);
+            result.Location.ShouldBeEquivalentTo(expectedLocation);
         }
 
         [TestMethod]
@@ -241,12 +256,13 @@ namespace WordSearchPuzzle.Test
         }
 
         [TestMethod]
-        public void FindWordDdrWithDiagonalUpLeftWordFoundShouldReturnCorrectFoundWord()
+        public void FindWordDdrWithDiagonalDownRightWordFoundShouldReturnCorrectFoundWord()
         {
             // Arrange
             const string wordToFind = "toab";
             const string expectedWord = "TOAB";
             const string expectedDirection = "DDR";
+            var expectedLocation = new GridLocation(0, 0);
             var grid = Get.AnySmallGrid();
 
             // Act
@@ -255,6 +271,7 @@ namespace WordSearchPuzzle.Test
             // Assert
             result.WordText.Should().Be(expectedWord);
             result.WordDirection.Should().Be(expectedDirection);
+            result.Location.ShouldBeEquivalentTo(expectedLocation);
         }
 
         [TestMethod]
