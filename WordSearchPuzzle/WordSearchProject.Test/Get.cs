@@ -13,5 +13,17 @@ namespace WordSearchPuzzle.Test
                 };
             return grid;
         }
+
+        public static string[] AnySmallGridWithDDLWordInsideBorder()
+        {
+            var grid = new[]
+                {
+                    "AAAA",
+                    "ABAA",
+                    "ABCA",
+                    "CAAD"
+                };
+            return grid;
+        }
     }
 }

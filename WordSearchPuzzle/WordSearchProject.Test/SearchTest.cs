@@ -273,6 +273,158 @@ namespace WordSearchPuzzle.Test
             result.WordDirection.Should().Be(expectedDirection);
             result.Location.ShouldBeEquivalentTo(expectedLocation);
         }
+        
+        [TestMethod]
+        public void GetWordWithLrDirectionAndSpaceInWordShouldReturnCorrectFoundWord()
+        {
+            // Arrange
+            const string wordToFind = "wo rd";
+            const string expectedWord = "WO RD";
+            const string expectedDirection = "LR";
+            var expectedLocation = new GridLocation(1, 0);
+            var grid = Get.AnySmallGrid();
+
+            // Act
+            var result = WordSearch.GetWord(wordToFind, grid);
+
+            // Assert
+            result.WordText.Should().Be(expectedWord);
+            result.WordDirection.Should().Be(expectedDirection);
+            result.Location.ShouldBeEquivalentTo(expectedLocation);
+        }
+
+        [TestMethod]
+        public void GetWordWithRlDirectionAndSpaceInWordShouldReturnCorrectFoundWord()
+        {
+            // Arrange
+            const string wordToFind = "br at";
+            const string expectedWord = "BR AT";
+            const string expectedDirection = "RL";
+            var expectedLocation = new GridLocation(3, 3);
+            var grid = Get.AnySmallGrid();
+
+            // Act
+            var result = WordSearch.GetWord(wordToFind, grid);
+
+            // Assert
+            result.WordText.Should().Be(expectedWord);
+            result.WordDirection.Should().Be(expectedDirection);
+            result.Location.ShouldBeEquivalentTo(expectedLocation);
+        }
+
+        [TestMethod]
+        public void FindWordUWithBottomToTopWordAndSpaceInWordShouldReturnCorrectFoundWord()
+        {
+            // Arrange
+            const string wordToFind = "ar op";
+            const string expectedWord = "AR OP";
+            const string expectedDirection = "U";
+            var expectedLocation = new GridLocation(3, 1);
+            var grid = Get.AnySmallGrid();
+
+            // Act
+            var result = WordSearch.FindWordU(wordToFind, grid);
+
+            // Assert
+            result.WordText.Should().Be(expectedWord);
+            result.WordDirection.Should().Be(expectedDirection);
+            result.Location.ShouldBeEquivalentTo(expectedLocation);
+        }
+
+        [TestMethod]
+        public void FindWordDWithTopToBottomWordAndSpaceShouldReturnCorrectFoundWord()
+        {
+            // Arrange
+            const string wordToFind = "ir ar";
+            const string expectedWord = "IR AR";
+            const string expectedDirection = "D";
+            var expectedLocation = new GridLocation(0, 2);
+            var grid = Get.AnySmallGrid();
+
+            // Act
+            var result = WordSearch.FindWordD(wordToFind, grid);
+
+            // Assert
+            result.WordText.Should().Be(expectedWord);
+            result.WordDirection.Should().Be(expectedDirection);
+            result.Location.ShouldBeEquivalentTo(expectedLocation);
+        }
+
+        [TestMethod]
+        public void FindWordDulWithDiagonalUpLeftAndSpaceShouldReturnCorrectFoundWord()
+        {
+            // Arrange
+            const string wordToFind = "ba ot";
+            const string expectedWord = "BA OT";
+            const string expectedDirection = "DUL";
+            var expectedLocation = new GridLocation(3, 3);
+            var grid = Get.AnySmallGrid();
+
+            // Act
+            var result = WordSearch.FindWordDul(wordToFind, grid);
+
+            // Assert
+            result.WordText.Should().Be(expectedWord);
+            result.WordDirection.Should().Be(expectedDirection);
+            result.Location.ShouldBeEquivalentTo(expectedLocation);
+        }
+
+        [TestMethod]
+        public void FindWordDurWithDiagonalUpRightAndSpaceShouldReturnCorrectFoundWord()
+        {
+            // Arrange
+            const string wordToFind = "tr rr";
+            const string expectedWord = "TR RR";
+            const string expectedDirection = "DUR";
+            var expectedLocation = new GridLocation(3, 0);
+            var grid = Get.AnySmallGrid();
+
+            // Act
+            var result = WordSearch.FindWordDur(wordToFind, grid);
+
+            // Assert
+            result.WordText.Should().Be(expectedWord);
+            result.WordDirection.Should().Be(expectedDirection);
+            result.Location.ShouldBeEquivalentTo(expectedLocation);
+        }
+
+        [TestMethod]
+        public void FindWordDdlWithDiagonalDownLeftAndSpaceShouldReturnCorrectFoundWord()
+        {
+            // Arrange
+            const string wordToFind = "rr rt";
+            const string expectedWord = "RR RT";
+            const string expectedDirection = "DDL";
+            var expectedLocation = new GridLocation(0, 3);
+            var grid = Get.AnySmallGrid();
+
+            // Act
+            var result = WordSearch.FindWordDdl(wordToFind, grid);
+
+            // Assert
+            result.WordText.Should().Be(expectedWord);
+            result.WordDirection.Should().Be(expectedDirection);
+            result.Location.ShouldBeEquivalentTo(expectedLocation);
+        }
+
+        [TestMethod]
+        public void FindWordDdrWithDiagonalDownRightAndSpaceShouldReturnCorrectFoundWord()
+        {
+            // Arrange
+            const string wordToFind = "to ab";
+            const string expectedWord = "TO AB";
+            const string expectedDirection = "DDR";
+            var expectedLocation = new GridLocation(0, 0);
+            var grid = Get.AnySmallGrid();
+
+            // Act
+            var result = WordSearch.FindWordDdr(wordToFind, grid);
+
+            // Assert
+            result.WordText.Should().Be(expectedWord);
+            result.WordDirection.Should().Be(expectedDirection);
+            result.Location.ShouldBeEquivalentTo(expectedLocation);
+        }
 
         [TestMethod]
         public void FindFirstLetterWillReturnListOfFirstLettersAndLocationsInGrid()
